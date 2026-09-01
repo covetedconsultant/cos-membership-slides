@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Coveted Consultant",
+  "provider_url": "https://covetedconsultant.github.io/cos-membership-slides/",
+  "title": "Box 2 \u00b7 Module 1 \u2014 Build Your Avatar Playbook",
+  "width": 1280,
+  "height": 720,
+  "html": "<iframe src=\"https://covetedconsultant.github.io/cos-membership-slides/box-2/module-1.html\" width=\"1280\" height=\"720\" frameborder=\"0\" allowfullscreen style=\"border:0;max-width:100%\"></iframe>"
+}
