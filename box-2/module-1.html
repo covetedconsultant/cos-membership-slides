@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Box 2 · Module 1 — Build Your Avatar Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#fff;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.deck{max-width:1100px;margin:0 auto;border:1px solid #ececec;border-radius:8px;overflow:hidden}
+.screen{position:relative;aspect-ratio:16/9;background:#fff}
+@media(max-width:760px){.screen{aspect-ratio:3/4}}
+.sl{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .16s ease;
+  padding:clamp(20px,3.3vw,46px) clamp(20px,3.6vw,52px);display:flex;flex-direction:column}
+.sl.on{opacity:1;pointer-events:auto}
+.kick{font-size:clamp(10px,1.05vw,12.5px);color:#8a8a8a;margin-bottom:auto}
+.sl h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.035em;line-height:.95;
+  font-size:clamp(23px,4.35vw,54px);margin:0 0 clamp(8px,1vw,13px);max-width:16ch;color:#141414}
+.sl>p{font-size:clamp(13px,1.35vw,18.5px);line-height:1.5;margin:0;max-width:44ch;color:#4a4a4a}
+.extra{margin-top:auto;padding-top:clamp(12px,1.6vw,20px)}
+.bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fafafa;border-top:1px solid #ececec}
+.bar button{font:inherit;font-size:14px;font-weight:500;border-radius:6px;padding:8px 16px;cursor:pointer;
+  background:#fff;color:#2a2a2a;border:1px solid #dcdcdc}
+.bar button:disabled{opacity:.35;cursor:default}
+.bar button:focus-visible{outline:2px solid #C7382A;outline-offset:2px}
+.prog{margin-left:auto;display:flex;gap:5px}
+.prog i{width:20px;height:3px;border-radius:2px;display:block;background:#e0e0e0}
+.prog i.on{background:#C7382A}
+.fw{display:grid;grid-template-columns:auto repeat(3,1fr);gap:clamp(4px,.6vw,7px);max-width:640px;align-items:start}
+.fw .pil{font-size:clamp(8.5px,.92vw,10.5px);font-weight:600;color:#8a8a8a;text-align:center;padding-bottom:5px;line-height:1.3}
+.fw .one{grid-row:2 / span 3;background:#f2f2f2;border-radius:3px;padding:8px 10px;display:flex;
+  flex-direction:column;justify-content:center;align-items:center;text-align:center;min-width:78px}
+.fw .one b{font-size:clamp(9.5px,1vw,12px);font-weight:600;color:#5a5a5a;display:block}
+.fw .one i{font-style:normal;font-size:clamp(8px,.82vw,10px);color:#9a9a9a;margin-top:3px;line-height:1.3}
+.fw .bx{background:#f2f2f2;border-radius:3px;padding:clamp(6px,.75vw,9px) 6px;text-align:center}
+.fw .bx b{font-size:clamp(9px,.98vw,11.5px);font-weight:600;color:#5a5a5a;display:block}
+.fw .bx i{font-style:normal;font-size:clamp(7.5px,.8vw,9.5px);color:#9a9a9a;display:block;margin-top:2px;line-height:1.25}
+.fw .bx.lit{background:#C7382A}
+.fw .bx.lit b{color:#fff}
+.fw .bx.lit i{color:#f3c4bf}
+.fw .bx.nxt{background:#fff;border:1px solid #C7382A}
+.fw .bx.nxt b{color:#C7382A}
+.fw .bx.nxt i{color:#c58f88}
+.flow{font-size:clamp(10.5px,1.1vw,13px);line-height:1.6;margin:clamp(8px,1vw,13px) 0 0;color:#7a7a7a}
+.flow b{color:#C7382A;font-weight:600}
+.lst{margin:4px 0 0;padding:0;list-style:none;max-width:48ch}
+.lst li{font-size:clamp(12.5px,1.24vw,17px);line-height:1.45;padding:clamp(6px,.8vw,9px) 0 clamp(6px,.8vw,9px) 19px;position:relative;
+  color:#4a4a4a;border-top:1px solid #ececec}
+.lst li:first-child{border-top:none}
+.lst li::before{content:"";position:absolute;left:0;top:1.05em;width:9px;height:1.5px;background:#C7382A}
+.cmp{display:grid;gap:clamp(6px,.7vw,9px);max-width:560px}
+.cmp div{border-radius:4px;padding:clamp(9px,1.1vw,13px) clamp(12px,1.3vw,16px);font-size:clamp(12px,1.22vw,14.5px);line-height:1.45;background:#f7f7f7;color:#9a9a9a}
+.cmp .good{background:#fff;border:1px solid #e4e4e4;border-left:3px solid #C7382A;color:#3a3a3a}
+.cmp span{display:block;font-size:clamp(9.5px,.98vw,11.5px);font-weight:600;margin-bottom:5px;color:#8a8a8a}
+.rep{border-radius:4px;padding:clamp(11px,1.4vw,17px) clamp(13px,1.6vw,19px);max-width:460px;background:#fff;border:1px solid #e4e4e4;
+  box-shadow:0 6px 20px rgba(0,0,0,.07);color:#4a4a4a}
+.rep .who{display:flex;gap:12px;align-items:center;margin-bottom:11px}
+.rep .mono{width:clamp(30px,3vw,38px);height:clamp(30px,3vw,38px);display:grid;place-items:center;font-weight:600;font-size:14px;flex:none;
+  border-radius:50%;background:#C7382A;color:#fff}
+.rep strong{display:block;font-size:clamp(12.5px,1.3vw,15.5px);font-weight:600;color:#141414}
+.rep em{font-style:normal;font-size:clamp(10px,1.05vw,12.5px);color:#8a8a8a}
+.rep dl{margin:0;font-size:clamp(11px,1.15vw,13.5px);line-height:1.42}
+.rep dt{font-weight:600;margin-top:clamp(5px,.7vw,9px);font-size:clamp(9.5px,1vw,12px);color:#C7382A}
+.rep dd{margin:2px 0 0}
+.cta{border:none;border-radius:5px;padding:clamp(10px,1.2vw,14px) clamp(18px,2vw,26px);font-size:clamp(13px,1.3vw,15px);font-weight:600;cursor:pointer;
+  background:#C7382A;color:#fff;font-family:Inter,sans-serif}
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="screen" id="screen"></div>
+  <div class="bar">
+    <button id="prev">Back</button>
+    <button id="next">Next</button>
+    <div class="prog" id="prog"></div>
+  </div>
+</div>
+<script>
+function framework(lit, next){
+  const P=[["Client Acquisition",[[2,"Identify","who buys what I sell?"],[3,"Invite","how do I get leads and meetings?"],[4,"Converse","what is the best decision?"]]],
+           ["Client Service",[[5,"Onboard","prepare the client"],[6,"Deliver","solve the problem"],[7,"Recap","review the work and celebrate"]]],
+           ["Client Retention",[[8,"Consult","hear the new problem"],[9,"Repeat","solve the new problem"],[10,"Delight","deepen the relationship"]]]];
+  let h='<div class="fw"><div></div>';
+  P.forEach(p=>h+='<div class="pil">'+p[0]+'</div>');
+  h+='<div class="one"><b>1</b><b>North Star</b><i>goals, beliefs, how you win</i></div>';
+  for(let r=0;r<3;r++){
+    P.forEach(p=>{
+      const [n,name,sub]=p[1][r];
+      const cls = n===lit?' lit' : (n===next?' nxt':'');
+      h+='<div class="bx'+cls+'"><b>'+n+' '+name+'</b><i>'+sub+'</i></div>';
+    });
+  }
+  return h+'</div>';
+}
+const SLIDES=[
+{t:"You are in Box 2.",
+ b:"Ten boxes make a consulting practice run. Box 1 sets your direction. The other nine sit in three pillars, and each box takes an input from the one before it.",
+ x:framework(2,3)+'<p class="flow">In · your revenue target and your best-client history &nbsp;&nbsp; <b>Out · the language Box 3 uses to get leads and meetings</b></p>'},
+{t:"When someone asks what you do, you describe what you do.",
+ b:"And it goes over their head. You have felt this somewhere.",
+ x:'<ul class="lst"><li>A bio you have tweaked for years that still sounds like everyone else</li>'
+  +'<li>The polite nod at a networking event before you finish the sentence</li>'
+  +'<li>Thanks, but no thanks, as the best reply your outreach gets</li></ul>'},
+{t:"Speak to one person, not to everyone.",
+ b:"Generic messaging reaches everyone and moves no one. Specific language makes the right person stop and say that's me.",
+ x:'<ul class="lst"><li>The wrong person self-selects out, which is worth just as much</li>'
+  +'<li>You already know who this person is. You have not written them down</li></ul>'},
+{t:"Your best client is already in your past.",
+ b:"You are not inventing this person. You are recording measurements from someone you already served.",
+ x:'<ul class="lst"><li>Who paid the most and stayed the longest</li>'
+  +'<li>Who got the biggest result and said thank you the loudest</li>'
+  +'<li>What those clients have in common is your measurement</li></ul>'},
+{t:"Take credit for what you already did.",
+ b:"Most consultants under-remember their own results. Not out of modesty, out of habit. The form is only as good as what you are willing to claim.",
+ x:'<div class="cmp"><div><span>Too vague to build from</span>Helped a client improve their onboarding and they were really happy with it.</div>'
+  +'<div class="good"><span>Enough to build from</span>I worked with Meridian Logistics. I rebuilt supervisor onboarding in nine weeks. Ramp time went from eleven weeks to four.</div></div>'},
+{t:"Here is what you get back.",
+ b:"A real report from a member. Yours arrives as a message after you submit the form below.",
+ x:'<div class="rep"><div class="who"><div class="mono">DK</div><div>'
+  +'<strong>Dave Kowalski, VP Operations</strong><em>Meridian Logistics · Columbus, OH · 47</em></div></div><dl>'
+  +'<dt>Problem</dt><dd>Why does every process fix we roll out fall apart within two quarters?</dd>'
+  +'<dt>Pain</dt><dd>Roughly $400K a year in rework, and it keeps him out of the strategy work he was hired for.</dd>'
+  +'<dt>Alternative</dt><dd>Six months with a big-four team. A 90-page assessment nobody opened.</dd></dl></div>'},
+{t:"Four things to have ready.",
+ b:"The form below asks for these in the same words.",
+ x:'<ul class="lst"><li>The client\'s name, not the type of client</li>'
+  +'<li>What you delivered, or the method you walked them through</li>'
+  +'<li>How long it took</li>'
+  +'<li>What improved, as a number or a sentence they can finally say</li></ul>'},
+{t:"Fill in the form below.",
+ b:"Your playbook comes back as a message. That message links to Module 2, which is how to read it and how to bring it to office hours.",
+ x:'<button class="cta">Go to the form</button>'}
+];
+const screen=document.getElementById('screen'),prog=document.getElementById('prog'),
+      prev=document.getElementById('prev'),next=document.getElementById('next');
+let i=0;
+screen.innerHTML=SLIDES.map((s,n)=>
+ `<div class="sl"><div class="kick">Box 2 · Identify · Module 1 · ${n+1} of ${SLIDES.length}</div>
+  <h2>${s.t}</h2><p>${s.b}</p><div class="extra">${s.x}</div></div>`).join('');
+prog.innerHTML=SLIDES.map(()=> '<i></i>').join('');
+function paint(){
+  [...screen.children].forEach((el,n)=>el.classList.toggle('on',n===i));
+  [...prog.children].forEach((el,n)=>el.classList.toggle('on',n<=i));
+  prev.disabled=i===0;next.disabled=i===SLIDES.length-1;
+}
+prev.onclick=()=>{if(i>0){i--;paint();}};
+next.onclick=()=>{if(i<SLIDES.length-1){i++;paint();}};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')next.onclick();
+  if(e.key==='ArrowLeft')prev.onclick();
+});
+paint();
+</script>
+</body>
+</html>
